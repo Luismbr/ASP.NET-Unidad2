@@ -33,7 +33,7 @@ namespace LuisMiguelBR.Unidad2.Practica6.Controllers
                 Director=collection["Director"],
                 AutorPrincipal=collection["AutorPrincipal"],
                 numAutores=int.Parse(collection["numAutores"]),
-                Duracion=float.Parse(collection["Duracion"].ToString()),
+                Duracion=float.Parse(collection["Duracion"]),
                 Estreno=int.Parse(collection["Estreno"]),
             };
             rp.GrabarPelicula(peli);
