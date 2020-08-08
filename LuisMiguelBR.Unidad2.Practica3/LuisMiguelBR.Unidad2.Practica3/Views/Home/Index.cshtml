@@ -1,0 +1,17 @@
+﻿@model IEnumerable<LuisMiguelBR.Unidad2.Practica3.Models.Coche>
+
+<h1>Listado de Vehiculos</h1>
+<div>
+
+    @{ 
+        var grid = new WebGrid(Model, defaultSort: "Marca");
+    }
+
+    @grid.GetHtml(columns:grid.Columns(
+        grid.Column("Tipo", header: "Tipo"),
+        grid.Column("Marca", header: "Marca"),
+        grid.Column("Modelo", header: "Modelo"),
+        grid.Column("Color", header: "Color")
+    ))
+
+</div>
