@@ -1,80 +1,80 @@
-﻿@model IEnumerable<LuisMiguelBR.Unidad2.Practica6.Models.Pelicula>
+﻿@model List<LuisMiguelBR.Unidad2.Practica6.Models.Pelicula>
 @{
-    Layout = null;
+    ViewBag.Title = "Registro de Peliculas";
 }
 
-<!DOCTYPE html>
+<h2>ViewBag.Title</h2>
 
-<html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
 <body>
-    <table class="table">
-        <tr>
-            <th>
-                Codigo
-            </th>
-            <th>
-                Titulo
-            </th>
-            <th>
-                Director
-            </th>
-            <th>
-                AutorPrincipal
-            </th>
-            <th>
-                NumActores
-            </th>
-            <th>
-                Duracion
-            </th>
-            <th>
-                Estreno
-            </th>
-            <th>
-                Borrar
-            </th>
-            <th>
-                Modificar
-            </th>
-        </tr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        Codigo
+                    </th>
+                    <th>
+                        Titulo
+                    </th>
+                    <th>
+                        Director
+                    </th>
+                    <th>
+                        ActorPrincipal
+                    </th>
+                    <th>
+                        NumActores
+                    </th>
+                    <th>
+                        Duracion
+                    </th>
+                    <th>
+                        Estreno
+                    </th>
+                </tr>
 
-        @foreach (var pelicula in Model)
-        {
-            <tr>
-                <td>
-                    @pelicula.Codigo
-                </td>
-                <td>
-                    @pelicula.Titulo
-                </td>
-                <td>
-                    @pelicula.Director
-                </td>
-                <td>
-                    @pelicula.AutorPrincipal
-                </td>
-                <td>
-                    @pelicula.numAutores
-                </td>
-                <td>
-                    @pelicula.Duracion
-                </td>
-                <td>
-                    @pelicula.Estreno
-                </td>
-                <td>
-                    <a href="/Home/Baja?cod=@pelicula.Codigo">Borrar?</a>
-                </td>
-                <td>
-                    <a href="/Home/Modificacion?cod=@pelicula.Codigo">Modificar?</a>
-                </td>
-            </tr>
-        }
-    </table>
-    <a href="/Home/Alta">Agregar</a>
+                @foreach (var pelicula in Model)
+                {
+                    <tr>
+                        <td>
+                            @pelicula.Codigo
+                        </td>
+                        <td>
+                            @pelicula.Titulo
+                        </td>
+                        <td>
+                            @pelicula.Director
+                        </td>
+                        <td>
+                            @pelicula.ActorPrincipal
+                        </td>
+                        <td>
+                            @pelicula.No_Actores
+                        </td>
+                        <td>
+                            @pelicula.Duracion
+                        </td>
+                        <td>
+                            @pelicula.Estreno
+                        </td>
+                        <td>
+                            <a class="btn btn-dufault" href="/Home/Borrar?cod=@pelicula.Codigo">Borrar</a>
+                            <a class="btn btn-danger" href="/Home/Modificar?cod=@pelicula.Codigo">Modificar</a>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row" style="text-align:right; padding:5px">
+        <a href="/Home/Grabar" class="btn btn-dufault">Agregar</a>
+    </div>
 </body>
-</html>
+

@@ -21,21 +21,21 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
         public int GrabarPelicula(Pelicula peli)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("Insert Into TBL_PELICULA (Codigo, Titulo, Director, AutorPrincipal, No_Autores, Duracion, Estreno)" +
-                                                "Values (@Codigo, @Titulo, @Director, @AutorPrincipal, @No_Actores, @Duracion, @Estreno)", con);
-            comando.Parameters.Add("@Codigo", SqlDbType.VarChar);
+            SqlCommand comando = new SqlCommand("Insert Into TBL_PELICULA (Titulo, Director, ActorPrincipal, No_Actores, Duracion, Estreno) " +
+                                                "Values (@Titulo, @Director, @ActorPrincipal, @No_Actores, @Duracion, @Estreno)", con);
             comando.Parameters.Add("@Titulo", SqlDbType.VarChar);
             comando.Parameters.Add("@Director", SqlDbType.VarChar);
-            comando.Parameters.Add("@AutorPrincipal", SqlDbType.VarChar);
-            comando.Parameters.Add("@No_Actores", SqlDbType.VarChar);
-            comando.Parameters.Add("@Duracion", SqlDbType.VarChar);
-            comando.Parameters.Add("@Estreno", SqlDbType.VarChar);
+            comando.Parameters.Add("@ActorPrincipal", SqlDbType.VarChar);
+            comando.Parameters.Add("@No_Actores", SqlDbType.Int);
+            comando.Parameters.Add("@Duracion", SqlDbType.Decimal);
+            comando.Parameters.Add("@Estreno", SqlDbType.Int);
             comando.Parameters["@Titulo"].Value = peli.Titulo;
             comando.Parameters["@Director"].Value = peli.Director;
-            comando.Parameters["@AutorPrincipal"].Value = peli.AutorPrincipal;
-            comando.Parameters["@No_Actores"].Value = peli.numAutores;
+            comando.Parameters["@ActorPrincipal"].Value = peli.ActorPrincipal;
+            comando.Parameters["@No_Actores"].Value = peli.No_Actores;
             comando.Parameters["@Duracion"].Value = peli.Duracion;
             comando.Parameters["@Estreno"].Value = peli.Estreno;
+            
             con.Open();
             int i = comando.ExecuteNonQuery();
             con.Close();
@@ -46,7 +46,8 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
         {
             Conectar();
             List<Pelicula> peliculas = new List<Pelicula>();
-            SqlCommand com = new SqlCommand("Select Codigo, Titulo, Director, AutorPrincipal, No_Actores, Duracion, Estreno From TBL_PELICULA", con);
+
+            SqlCommand com = new SqlCommand("Select Codigo, Titulo, Director, ActorPrincipal, No_Actores, Duracion, Estreno From TBL_PELICULA", con);
             con.Open();
             SqlDataReader registros = com.ExecuteReader();
             while (registros.Read())
@@ -56,9 +57,9 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
                     Codigo = int.Parse(registros["Codigo"].ToString()),
                     Titulo = registros["Titulo"].ToString(),
                     Director = registros["Director"].ToString(),
-                    AutorPrincipal = registros["AutorPrincipal"].ToString(),
-                    numAutores = int.Parse(registros["No_Actores"].ToString()),
-                    Duracion = float.Parse(registros["Duracion"].ToString()),
+                    ActorPrincipal = registros["ActorPrincipal"].ToString(),
+                    No_Actores = int.Parse(registros["No_Actores"].ToString()),
+                    Duracion = Double.Parse(registros["Duracion"].ToString()),
                     Estreno = int.Parse(registros["Estreno"].ToString())
                 };
                 peliculas.Add(peli);
@@ -70,7 +71,7 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
         public Pelicula Recuperar (int codigo)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("Select Codigo, Titulo, Director, AutorPrincipal, No_Actores, Duracion, Estreno From TBL_PELICULA" +
+            SqlCommand comando = new SqlCommand("Select Codigo, Titulo, Director, ActorPrincipal, No_Actores, Duracion, Estreno " +
                                                 "From TBL_PELICULA where Codigo=@Codigo", con);
             comando.Parameters.Add("@Codigo", SqlDbType.Int);
             comando.Parameters["@Codigo"].Value = codigo;
@@ -82,9 +83,9 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
                 pelicula.Codigo = int.Parse(registros["Codigo"].ToString());
                 pelicula.Titulo = registros["Titulo"].ToString();
                 pelicula.Director = registros["Director"].ToString();
-                pelicula.AutorPrincipal = registros["AutorPrincipal"].ToString();
-                pelicula.numAutores = int.Parse(registros["No_Actores"].ToString());
-                pelicula.Duracion = double.Parse(registros["Titulo"].ToString());
+                pelicula.ActorPrincipal = registros["ActorPrincipal"].ToString();
+                pelicula.No_Actores = int.Parse(registros["No_Actores"].ToString());
+                pelicula.Duracion = Double.Parse(registros["Duracion"].ToString());
                 pelicula.Estreno = int.Parse(registros["Estreno"].ToString());
             }
             con.Close();
@@ -94,19 +95,21 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
         public int Modificar (Pelicula peli)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("Update TBL_PELICULA set Titulo=@Titulo, Director=@Director, AutorPrincipal=@AutorPrincipal, No_Autores=@No_Actores, "+
+            SqlCommand comando = new SqlCommand("Update TBL_PELICULA set Titulo=@Titulo, Director=@Director, ActorPrincipal=@ActorPrincipal, No_Actores=@No_Actores, "+
                                                 "Duracion=@Duracion, Estreno=@Estreno where Codigo=@Codigo", con);
+            comando.Parameters.Add("@Codigo", SqlDbType.Int);
             comando.Parameters.Add("@Titulo", SqlDbType.VarChar);
-            comando.Parameters["@Titulo"].Value = peli.Titulo;
             comando.Parameters.Add("@Director", SqlDbType.VarChar);
+            comando.Parameters.Add("@ActorPrincipal", SqlDbType.VarChar);
+            comando.Parameters.Add("@No_Actores", SqlDbType.Int);
+            comando.Parameters.Add("@Duracion", SqlDbType.Decimal);
+            comando.Parameters.Add("@Estreno", SqlDbType.Int);
+            comando.Parameters["@Codigo"].Value = peli.Codigo;
+            comando.Parameters["@Titulo"].Value = peli.Titulo;
             comando.Parameters["@Director"].Value = peli.Director;
-            comando.Parameters.Add("@AutorPrincipal", SqlDbType.VarChar);
-            comando.Parameters["@AutorPrincipal"].Value = peli.AutorPrincipal;
-            comando.Parameters.Add("@No_Actores", SqlDbType.VarChar);
-            comando.Parameters["@No_Actores"].Value = peli.numAutores;
-            comando.Parameters.Add("@Duracion", SqlDbType.VarChar);
+            comando.Parameters["@ActorPrincipal"].Value = peli.ActorPrincipal;
+            comando.Parameters["@No_Actores"].Value = peli.No_Actores;
             comando.Parameters["@Duracion"].Value = peli.Duracion;
-            comando.Parameters.Add("@Estreno", SqlDbType.VarChar);
             comando.Parameters["@Estreno"].Value = peli.Estreno;
 
             con.Open();
@@ -119,8 +122,9 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
         {
             Conectar();
             SqlCommand comando = new SqlCommand("Delete From TBL_PELICULA where Codigo=@Codigo", con);
-            comando.Parameters.Add("@Codigo", SqlDbType.VarChar);
+            comando.Parameters.Add("@Codigo", SqlDbType.Int);
             comando.Parameters["@Codigo"].Value = codigo;
+            
             con.Open();
             int i = comando.ExecuteNonQuery();
             con.Close();

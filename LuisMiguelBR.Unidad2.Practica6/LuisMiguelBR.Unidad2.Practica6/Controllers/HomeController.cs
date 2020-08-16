@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -28,17 +29,18 @@ namespace LuisMiguelBR.Unidad2.Practica6.Controllers
             RegistroPelicula rp = new RegistroPelicula();
             Pelicula peli = new Pelicula
             {
-                Codigo= int.Parse(collection["Codigo"]),
-                Titulo= collection["Titulo"],
-                Director=collection["Director"],
-                AutorPrincipal=collection["AutorPrincipal"],
-                numAutores=int.Parse(collection["numAutores"]),
-                Duracion=float.Parse(collection["Duracion"]),
-                Estreno=int.Parse(collection["Estreno"]),
+                //Codigo=int.Parse(collection["Codigo"]),
+                Titulo = collection["Titulo"],
+                Director = collection["Director"],
+                ActorPrincipal = collection["ActorPrincipal"],
+                No_Actores = int.Parse(collection["No_Actores"]),
+                Duracion = float.Parse(collection["Duracion"].ToString()),
+                Estreno = int.Parse(collection["Estreno"]),
             };
             rp.GrabarPelicula(peli);
             return RedirectToAction("Index");
         }
+         
 
         public ActionResult Borrar (int cod)
         {
@@ -47,28 +49,29 @@ namespace LuisMiguelBR.Unidad2.Practica6.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Modificacion(int cod)
+        public ActionResult Modificar(int cod)
         {
             RegistroPelicula peli = new RegistroPelicula();
             Pelicula rpt = peli.Recuperar(cod);
+            
             return View(rpt);
         }
 
-        [HttpPost]
-        public ActionResult Modificacion(FormCollection collection)
+        [HttpPut]
+        public ActionResult Modificar(FormCollection collection)
         {
-            RegistroPelicula peli = new RegistroPelicula();
-            Pelicula rpt = new Pelicula
+            RegistroPelicula rpt = new RegistroPelicula();
+            Pelicula peli = new Pelicula
             {
-                Codigo = int.Parse(collection["Codigo"]),
+                //Codigo = int.Parse(collection["Codigo"]),
                 Titulo = collection["Titulo"],
                 Director = collection["Director"],
-                AutorPrincipal = collection["AutorPrincipal"],
-                numAutores = int.Parse(collection["numAutores"]),
+                ActorPrincipal = collection["ActorPrincipal"],
+                No_Actores = int.Parse(collection["No_Actores"]),
                 Duracion = float.Parse(collection["Duracion"].ToString()),
                 Estreno = int.Parse(collection["Estreno"]),
             };
-            peli.Modificar(rpt);
+            rpt.Modificar(peli);
             return RedirectToAction("Index");
         }
     }

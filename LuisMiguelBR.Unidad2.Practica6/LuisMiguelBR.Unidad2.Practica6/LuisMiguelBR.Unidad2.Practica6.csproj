@@ -106,7 +106,9 @@
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Grabar.cshtml" />
-    <Content Include="Views\Home\Modificacion.cshtml" />
+    <Content Include="Views\Home\Borrar.cshtml" />
+    <Content Include="Views\Home\Modificar.cshtml" />
+    <Content Include="Views\Home\Modificacion2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
