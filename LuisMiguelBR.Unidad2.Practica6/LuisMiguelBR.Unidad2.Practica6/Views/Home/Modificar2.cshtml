@@ -1,0 +1,84 @@
+﻿@model LuisMiguelBR.Unidad2.Practica6.Models.Pelicula
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Modificar</title>
+</head>
+<body>
+    <div>
+        <form method="put" action="/Home/Modificar">
+            <h1>Modificar Registro de Peliculas</h1>
+            <hr />
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Director)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.Director, new { htmlAttributes = new { @class = "form-control" } })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActorPrincipal)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.ActorPrincipal, new { htmlAttributes = new { @class = "form-control" } })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.No_Actores)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.No_Actores, new { htmlAttributes = new { @class = "form-control" } })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Duracion)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.Duracion, new { htmlAttributes = new { @class = "form-control" } })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Estreno)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.Estreno, new { htmlAttributes = new { @class = "form-control" } })
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Update" class="btn btn-default" /> |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            }
+
+        </form>
+    </div>
+</body>
+</html>
+

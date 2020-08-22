@@ -57,13 +57,12 @@ namespace LuisMiguelBR.Unidad2.Practica6.Controllers
             return View(rpt);
         }
 
-        [HttpPut]
+        [HttpPost]
         public ActionResult Modificar(FormCollection collection)
         {
-            RegistroPelicula rpt = new RegistroPelicula();
-            Pelicula peli = new Pelicula
+            RegistroPelicula peli = new RegistroPelicula();
+            Pelicula rpt = new Pelicula
             {
-                //Codigo = int.Parse(collection["Codigo"]),
                 Titulo = collection["Titulo"],
                 Director = collection["Director"],
                 ActorPrincipal = collection["ActorPrincipal"],
@@ -71,7 +70,7 @@ namespace LuisMiguelBR.Unidad2.Practica6.Controllers
                 Duracion = float.Parse(collection["Duracion"].ToString()),
                 Estreno = int.Parse(collection["Estreno"]),
             };
-            rpt.Modificar(peli);
+            peli.Modificar(rpt);
             return RedirectToAction("Index");
         }
     }

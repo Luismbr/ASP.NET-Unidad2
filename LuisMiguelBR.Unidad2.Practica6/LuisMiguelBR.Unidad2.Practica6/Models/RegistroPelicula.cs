@@ -18,6 +18,7 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
             con = new SqlConnection(constr);
         }
 
+        /* Grabar un Registro en la DB */
         public int GrabarPelicula(Pelicula peli)
         {
             Conectar();
@@ -42,6 +43,7 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
             return i;
         }
 
+        /* Mostrar todos los Registros en la DB */
         public List<Pelicula> RecuperarTodo()
         {
             Conectar();
@@ -68,11 +70,11 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
             return peliculas;
         }
 
+        /* Mostrar un Registro especifico en la DB */
         public Pelicula Recuperar (int codigo)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("Select Codigo, Titulo, Director, ActorPrincipal, No_Actores, Duracion, Estreno " +
-                                                "From TBL_PELICULA where Codigo=@Codigo", con);
+            SqlCommand comando = new SqlCommand("Select Codigo, Titulo, Director, ActorPrincipal, No_Actores, Duracion, Estreno From TBL_PELICULA where Codigo=@Codigo", con);
             comando.Parameters.Add("@Codigo", SqlDbType.Int);
             comando.Parameters["@Codigo"].Value = codigo;
             con.Open();
@@ -88,6 +90,7 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
                 pelicula.Duracion = Double.Parse(registros["Duracion"].ToString());
                 pelicula.Estreno = int.Parse(registros["Estreno"].ToString());
             }
+
             con.Close();
             return pelicula;
         }
@@ -97,6 +100,7 @@ namespace LuisMiguelBR.Unidad2.Practica6.Models
             Conectar();
             SqlCommand comando = new SqlCommand("Update TBL_PELICULA set Titulo=@Titulo, Director=@Director, ActorPrincipal=@ActorPrincipal, No_Actores=@No_Actores, "+
                                                 "Duracion=@Duracion, Estreno=@Estreno where Codigo=@Codigo", con);
+
             comando.Parameters.Add("@Codigo", SqlDbType.Int);
             comando.Parameters.Add("@Titulo", SqlDbType.VarChar);
             comando.Parameters.Add("@Director", SqlDbType.VarChar);
